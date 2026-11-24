@@ -1,0 +1,12 @@
+{
+  "max_rows": 40000,
+  "chunk_size": 10000,
+  "threads": 4,
+  "xgb_trials": 18,
+  "cnn_trials": 14,
+  "trees": 1500,
+  "epochs": 35,
+  "patience": 6,
+  "batch_size": 512,
+  "demo_rows": 2000
+}

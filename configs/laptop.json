@@ -1,0 +1,15 @@
+{
+  "max_rows": 150000,
+  "chunk_size": 25000,
+  "threads": 4,
+  "xgb_trials": 18,
+  "cnn_trials": 14,
+  "trees": 1500,
+  "epochs": 35,
+  "xgb_patience": 30,
+  "patience": 6,
+  "batch_size": 512,
+  "cnn_epoch_budget_seconds": 180,
+  "tuning_majority_fraction": 0.25,
+  "demo_rows": 2000
+}

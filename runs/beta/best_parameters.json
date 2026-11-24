@@ -1,0 +1,14 @@
+{
+  "xgboost": {
+    "weight_formula": "ratio",
+    "colsample_bytree": 0.5,
+    "max_depth": 8,
+    "min_child_weight": 3
+  },
+  "cnn": {
+    "learning_rate": 0.003,
+    "dropout": 0.2,
+    "weight_formula": "sqrt_ratio",
+    "kernel_size": 5
+  }
+}

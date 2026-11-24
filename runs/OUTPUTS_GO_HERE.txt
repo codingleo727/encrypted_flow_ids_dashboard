@@ -1,0 +1,2 @@
+Training creates an experiment folder here with both models and actual results.
+Use a new run name for each experiment.

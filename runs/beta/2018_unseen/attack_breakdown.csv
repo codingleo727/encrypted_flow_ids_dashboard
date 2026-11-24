@@ -1,0 +1,43 @@
+model,attack_label,n,target,rare_attack,recall,false_positive_rate,predicted_attack_rate
+xgboost,Benign,260550,0,False,,0.039800422183841874,0.039800422183841874
+xgboost,Bot,3575,1,True,0.008111888111888113,,0.008111888111888113
+xgboost,Brute Force -Web,10,1,True,0.0,,0.0
+xgboost,Brute Force -XSS,3,1,True,0.0,,0.0
+xgboost,DDOS attack-HOIC,10510,1,False,0.0020932445290199808,,0.0020932445290199808
+xgboost,DDOS attack-LOIC-UDP,51,1,False,0.0,,0.0
+xgboost,DDoS attacks-LOIC-HTTP,14210,1,False,0.5672765657987333,,0.5672765657987333
+xgboost,DoS attacks-GoldenEye,1017,1,False,0.2448377581120944,,0.2448377581120944
+xgboost,DoS attacks-Hulk,7186,1,False,0.004174784302811021,,0.004174784302811021
+xgboost,DoS attacks-SlowHTTPTest,10,1,False,0.0,,0.0
+xgboost,DoS attacks-Slowloris,265,1,False,0.9886792452830189,,0.9886792452830189
+xgboost,FTP-BruteForce,4,1,True,0.0,,0.0
+xgboost,Infilteration,2453,1,True,0.018752547900529964,,0.018752547900529964
+xgboost,SSH-Bruteforce,2349,1,True,0.0,,0.0
+cnn,Benign,260550,0,False,,0.04572251007484168,0.04572251007484168
+cnn,Bot,3575,1,True,0.0011188811188811189,,0.0011188811188811189
+cnn,Brute Force -Web,10,1,True,0.6,,0.6
+cnn,Brute Force -XSS,3,1,True,1.0,,1.0
+cnn,DDOS attack-HOIC,10510,1,False,0.0028544243577545195,,0.0028544243577545195
+cnn,DDOS attack-LOIC-UDP,51,1,False,0.0,,0.0
+cnn,DDoS attacks-LOIC-HTTP,14210,1,False,0.43349753694581283,,0.43349753694581283
+cnn,DoS attacks-GoldenEye,1017,1,False,0.2586037364798427,,0.2586037364798427
+cnn,DoS attacks-Hulk,7186,1,False,0.004870581686612858,,0.004870581686612858
+cnn,DoS attacks-SlowHTTPTest,10,1,False,1.0,,1.0
+cnn,DoS attacks-Slowloris,265,1,False,0.9849056603773585,,0.9849056603773585
+cnn,FTP-BruteForce,4,1,True,1.0,,1.0
+cnn,Infilteration,2453,1,True,0.03872808805544232,,0.03872808805544232
+cnn,SSH-Bruteforce,2349,1,True,0.0,,0.0
+ensemble,Benign,260550,0,False,,0.03963922471694492,0.03963922471694492
+ensemble,Bot,3575,1,True,0.0025174825174825175,,0.0025174825174825175
+ensemble,Brute Force -Web,10,1,True,0.0,,0.0
+ensemble,Brute Force -XSS,3,1,True,0.0,,0.0
+ensemble,DDOS attack-HOIC,10510,1,False,0.0020932445290199808,,0.0020932445290199808
+ensemble,DDOS attack-LOIC-UDP,51,1,False,0.0,,0.0
+ensemble,DDoS attacks-LOIC-HTTP,14210,1,False,0.48662913441238564,,0.48662913441238564
+ensemble,DoS attacks-GoldenEye,1017,1,False,0.20353982300884957,,0.20353982300884957
+ensemble,DoS attacks-Hulk,7186,1,False,0.004174784302811021,,0.004174784302811021
+ensemble,DoS attacks-SlowHTTPTest,10,1,False,0.0,,0.0
+ensemble,DoS attacks-Slowloris,265,1,False,0.9962264150943396,,0.9962264150943396
+ensemble,FTP-BruteForce,4,1,True,0.0,,0.0
+ensemble,Infilteration,2453,1,True,0.017937219730941704,,0.017937219730941704
+ensemble,SSH-Bruteforce,2349,1,True,0.0,,0.0

@@ -1,0 +1,62 @@
+{
+  "thresholds": {
+    "xgboost": 0.6393700838088989,
+    "cnn": 0.49378108978271484,
+    "ensemble": 0.6739842891693115
+  },
+  "ensemble": {
+    "xgboost_weight": 0.8,
+    "calibration": {},
+    "selection_pr_auc": 0.9999120881200336
+  },
+  "raw_weight_search": [
+    {
+      "xgboost_weight": 0.0,
+      "pr_auc": 0.9996125346595742
+    },
+    {
+      "xgboost_weight": 0.1,
+      "pr_auc": 0.9998242658085021
+    },
+    {
+      "xgboost_weight": 0.2,
+      "pr_auc": 0.9998576054944465
+    },
+    {
+      "xgboost_weight": 0.30000000000000004,
+      "pr_auc": 0.9998844252460054
+    },
+    {
+      "xgboost_weight": 0.4,
+      "pr_auc": 0.9999000526686307
+    },
+    {
+      "xgboost_weight": 0.5,
+      "pr_auc": 0.9999064819326111
+    },
+    {
+      "xgboost_weight": 0.6000000000000001,
+      "pr_auc": 0.9999106728428502
+    },
+    {
+      "xgboost_weight": 0.7000000000000001,
+      "pr_auc": 0.999912079135902
+    },
+    {
+      "xgboost_weight": 0.8,
+      "pr_auc": 0.9999120881200336
+    },
+    {
+      "xgboost_weight": 0.9,
+      "pr_auc": 0.9999065024428113
+    },
+    {
+      "xgboost_weight": 1.0,
+      "pr_auc": 0.9998555185280587
+    }
+  ],
+  "calibrated_weight_search": null,
+  "primary_metric": "trapezoidal_pr_auc",
+  "threshold_objective": "binary_attack_f1",
+  "source": "2017 validation decision subset; sigmoid fits use separate calibration subset"
+}

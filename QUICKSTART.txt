@@ -1,0 +1,116 @@
+ENCRYPTED FLOW IDS — TUNING + ENSEMBLE UPDATE (v0.2)
+==================================================
+
+Use a NEW experiment folder. Existing models are not automatically tuned.
+The updated dashboard can still open completed original beta runs.
+No real CIC data or trained benchmark models are included in this folder.
+
+1. Open a terminal in encrypted-flow-ids.
+   Install 64-bit Python 3.11 or 3.12. On Windows:
+
+   py -3.11 -m venv .venv
+   .\.venv\Scripts\python.exe -m pip install --upgrade pip
+   .\.venv\Scripts\python.exe -m pip install -r requirements.txt
+   .\.venv\Scripts\python.exe -m ids doctor
+
+   Use py -3.12 if that is the installed version. No activation command needed.
+   On Linux/macOS use python3 -m venv .venv and .venv/bin/python instead.
+   On Linux, install the CPU PyTorch wheel before requirements.txt to avoid
+   CUDA downloads: pip install torch --index-url https://download.pytorch.org/whl/cpu
+
+2. Put the EXTRACTED, labeled CSV files in their respective folders:
+   data/raw/2017/ : all supplied CIC-IDS2017 files (including attack days)
+   data/raw/2018/ : CSE-CIC-IDS2018 files, reserved for FINAL unseen evaluation
+
+   .\.venv\Scripts\python.exe -m ids inspect --data data/raw/2017
+
+3. Run software checks before a long search:
+
+   .\.venv\Scripts\python.exe -m unittest discover -s tests -v
+
+   With all requirements installed, all tests should execute, including tiny
+   real-model training and Streamlit interactions on synthetic software data.
+   See VALIDATION.txt for which checks were executable during creation.
+
+4. Run the full 18-XGBoost + 14-CNN tuning search:
+
+   .\.venv\Scripts\python.exe -m ids train --data2017 data/raw/2017 --run runs/tuned --config configs/tuning.json
+
+   This first retains up to 150,000 uniformly sampled source rows. Of its
+   training partition, tuning uses all available rare attacks and 25% of other
+   labels. Each winner is then retrained once on the FULL SAMPLED TRAINING
+   PARTITION, not the original multi-million-row dataset.
+
+   Alternatively configs/quick.json uses up to 40,000 source rows with the SAME
+   18+14 search budget. Both use CPU, four requested threads, up to 1,500 trees
+   per XGBoost trial and 35 CNN epochs, with validation PR-AUC early stopping.
+   Allow several hours; actual runtime depends on your computer and the data.
+   The log estimates remaining time for each model's search after every trial.
+
+   To benchmark a shorter real-data search before committing to the full run:
+
+   .\.venv\Scripts\python.exe -m ids train --data2017 data/raw/2017 --run runs/timing --config configs/quick.json --xgb-trials 1 --cnn-trials 1
+
+   This also performs the two final refits and ensemble selection. It uses ONLY
+   2017 data. Do not use 2018 to choose between timing/quick/full experiments.
+
+5. After choosing the final run, evaluate it on unseen 2018 data:
+
+   .\.venv\Scripts\python.exe -m ids evaluate --data2018 data/raw/2018 --run runs/tuned --max-rows 150000
+
+   This reads saved models, preprocessing, ensemble weight/calibration, and
+   thresholds. It fits/tunes nothing. Exact overlaps with retained 2017 vectors
+   are removed. Results describe a sample of the SUPPLIED 2018 CSVs.
+
+6. Launch the demo:
+
+   .\.venv\Scripts\python.exe -m streamlit run dashboard.py
+
+   Set Experiment folder to runs/tuned. Select 2017 held-out or 2018 unseen
+   data and XGBoost, 1D-CNN or Ensemble, then click Run detection.
+   The demo performs fresh predictions on cached samples. The comparison tab
+   shows metrics for the entire saved evaluation sample, separately from these
+   small live-inference samples. No raw dataset scan or retraining is needed
+   during the demo. RUN_DASHBOARD.cmd is a Windows launch shortcut after setup.
+
+7. Optional streaming prediction (compatible CSVs, labels optional):
+
+   .\.venv\Scripts\python.exe -m ids predict --data data/raw/2018 --run runs/tuned --model all --output predictions_2018.csv
+
+   Models: all, xgboost, cnn, ensemble. Saved 2017 validation thresholds apply.
+   'both' remains an alias for all available models, including the ensemble.
+   Output must be outside the input dataset and experiment folders.
+
+Key decisions implemented:
+- Separate training / validation / test within 2017 (approximately 60/20/20).
+- Split validation into search/early-stop (50%), calibration (25%) and final
+  blend/threshold selection (25%). Connection groups remain separate if present.
+- Select each model and ensemble weight by the SAME trapezoidal PR-AUC metric.
+  Average precision is also reported and labeled separately.
+- Select one F1-maximizing threshold for EACH of the three models on the 2017
+  validation decision subset. Report FPR; there is no hard FPR requirement.
+- Keep 2017 test and all 2018 records out of every selection step.
+- Ensemble weight grid 0.0 to 1.0 in steps of 0.1. An endpoint winner is valid.
+- Try independent sigmoid calibration only when the raw blend fails to improve
+  on the best base model on validation. Calibration fits use their own subset.
+
+Important limits:
+- Full CSV scans still take time, even with a small retained sample.
+- Rare examples omitted by initial uniform sampling cannot be recovered by the
+  tuning subsample. label_support.csv shows supports, including zero counts.
+- Very small validation class counts or insufficient connection groups cause
+  an explicit error. Increase max_rows when that happens.
+- Trial JSON/CSV and best search checkpoints are saved incrementally. Automatic
+  resume is not implemented; failed/interrupted runs require a fresh run name.
+- CNN trials exceeding cnn_epoch_budget_seconds are ineligible and count toward
+  the configured trial budget. Remaining trials use smaller channels and larger
+  batches. Final full-training refits retain the winning architecture and can
+  take longer than the tuning epoch budget.
+- The CNN operates on aggregate CSV feature positions, not raw packet sequences.
+
+For a synthetic software demonstration only:
+   .\.venv\Scripts\python.exe scripts/make_synthetic_fixture.py --output data/synthetic
+   .\.venv\Scripts\python.exe -m ids train --data2017 data/synthetic/2017 --run runs/synthetic --config configs/smoke.json
+   .\.venv\Scripts\python.exe -m ids evaluate --data2018 data/synthetic/2018 --run runs/synthetic --max-rows 2000
+
+The dashboard labels synthetic runs. Never report their scores as CIC results.

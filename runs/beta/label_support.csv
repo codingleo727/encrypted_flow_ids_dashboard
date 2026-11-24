@@ -1,0 +1,16 @@
+label,rare,eligible_source_rows,retained_sample,train,tuning_train,test,validation_search,validation_calibration,validation_decision
+BENIGN,False,2273097,251020,150612,37653,50204,25102,12551,12551
+Bot,True,1966,176,100,100,39,22,9,6
+DDoS,False,128027,17962,10828,2707,3548,1775,906,905
+DoS GoldenEye,False,10293,1470,873,219,297,147,78,75
+DoS Hulk,False,231073,24379,14620,3655,4882,2456,1198,1223
+DoS Slowhttptest,False,5499,756,460,115,151,77,32,36
+DoS slowloris,False,5796,801,469,118,177,77,44,34
+FTP-Patator,True,7938,895,529,529,190,93,42,41
+Heartbleed,True,11,2,1,1,0,0,1,0
+Infiltration,True,36,6,2,2,3,1,0,0
+PortScan,False,158930,484,300,75,93,38,32,21
+SSH-Patator,True,5897,438,237,237,99,50,27,25
+Web Attack � Brute Force,True,1507,210,125,125,39,22,10,14
+Web Attack � Sql Injection,True,21,1,1,1,0,0,0,0
+Web Attack � XSS,True,652,103,64,64,19,10,5,5

@@ -1,0 +1,40 @@
+{
+  "method": "stratified_random_after_exact_vector_deduplication",
+  "limitation": "Related flows from the same host/session/capture can still cross partitions; within-2017 results do not establish temporal or deployment generalization.",
+  "requested_test_fraction": 0.2,
+  "requested_validation_fraction": 0.2,
+  "counts": {
+    "train": {
+      "n": 179221,
+      "benign": 150612,
+      "attacks": 28609
+    },
+    "validation": {
+      "n": 59741,
+      "benign": 50204,
+      "attacks": 9537
+    },
+    "test": {
+      "n": 59741,
+      "benign": 50204,
+      "attacks": 9537
+    }
+  },
+  "validation_subsets": {
+    "search": {
+      "n": 29870,
+      "benign": 25102,
+      "attacks": 4768
+    },
+    "calibration": {
+      "n": 14935,
+      "benign": 12551,
+      "attacks": 2384
+    },
+    "decision": {
+      "n": 14936,
+      "benign": 12551,
+      "attacks": 2385
+    }
+  }
+}
