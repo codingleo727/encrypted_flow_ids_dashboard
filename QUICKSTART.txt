@@ -1,4 +1,4 @@
-ENCRYPTED FLOW IDS — TUNING + ENSEMBLE UPDATE (v0.2)
+ENCRYPTED FLOW IDS
 ==================================================
 
 Use a NEW experiment folder. Existing models are not automatically tuned.
